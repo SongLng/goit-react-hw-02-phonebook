@@ -34,7 +34,9 @@ class App extends Component {
   formSubmit = ({ name, number }) => {
     this.setState(prevState => {
       const { contacts } = prevState;
-      const isContact = contacts.find(contact => contact.name === name);
+      const isContact = contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      );
 
       if (isContact) {
         alert(`${name} is already in contact`);
@@ -64,6 +66,7 @@ class App extends Component {
 
   render() {
     const { filter } = this.state;
+    const filteredContacts = this.filteredContacts(filter);
     return (
       <div className="container">
         <h1>Phone Book</h1>
@@ -76,7 +79,7 @@ class App extends Component {
           value={filter}
         />
         <ContactList
-          filteredContacts={this.filteredContacts(filter)}
+          filteredContacts={filteredContacts}
           onDelete={this.contactDelete}
         />
       </div>

@@ -1,9 +1,14 @@
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 
 class ContactForm extends Component {
   state = {
     name: '',
     number: '',
+  };
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
   };
 
   handleInputChange = e => {
@@ -12,8 +17,10 @@ class ContactForm extends Component {
   };
 
   handleSubmit = e => {
+    const { onSubmit } = this.props;
     e.preventDefault();
-    this.props.onSubmit(this.state);
+
+    onSubmit(this.state);
     this.setState({ name: '', number: '' });
   };
 
